@@ -1,8 +1,10 @@
 import { Menu, ShoppingCart, User } from "lucide-react";
 import React from "react";
+import { useSelector } from "react-redux";
 import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
+  const cart = useSelector((state) => state.cart);
   return (
     <nav className="bg-gray-900 text-white p-4 shadow-md">
       <div className="container mx-auto flex justify-between items-center">
@@ -43,7 +45,7 @@ const Navbar = () => {
             <ShoppingCart className="h-6 w-6" />
             {/* Cart count badge (optional) */}
             <span className="absolute -top-2 -right-2 bg-red-500 text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              3
+              {cart.length}
             </span>
           </Link>
           <button

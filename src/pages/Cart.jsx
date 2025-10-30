@@ -1,14 +1,12 @@
-import React, { useState } from "react";
+import React from "react";
 // Import lucide-react icons
 import { Plus, Minus, Trash2, ShoppingBag, CreditCard } from "lucide-react";
-import { useSelector } from "react-redux";
-
-// Sample product-er data state-e rakha hocche
-const INITIAL_ITEMS = [
-  { id: 1, name: "Premium Headphone", price: 120.0, quantity: 1 },
-  { id: 2, name: "Smart Watch", price: 199.0, quantity: 2 },
-  { id: 3, name: "Wireless Keyboard", price: 85.0, quantity: 1 },
-];
+import { useSelector, useDispatch } from "react-redux";
+import {
+  removeFromCart,
+  increaseQuantity,
+  decreaseQuantity,
+} from "../redux/features/cart/cartSlice";
 
 /**
  * Order Summary Component
@@ -24,7 +22,7 @@ function OrderSummary({ items, onIncrease, onDecrease, onRemove }) {
 
   return (
     <div className="bg-white p-6 md:p-8 rounded-lg shadow-lg w-full">
-      <h2 className="text-2xl font-bold text-gray-800 mb-6">Aponar Order</h2>
+      <h2 className="text-2xl font-bold text-gray-800 mb-6">Order Summary</h2>
 
       {/* Item List */}
       <div className="space-y-6">
@@ -32,7 +30,7 @@ function OrderSummary({ items, onIncrease, onDecrease, onRemove }) {
           <div className="text-center py-10">
             <ShoppingBag className="h-16 w-16 text-gray-300 mx-auto" />
             <p className="mt-4 text-lg text-gray-500">
-              Aponar cart ekhon khali.
+                Your cart is currently empty.
             </p>
           </div>
         ) : (
@@ -44,7 +42,7 @@ function OrderSummary({ items, onIncrease, onDecrease, onRemove }) {
               {/* Item Details */}
               <div>
                 <h3 className="text-lg font-medium text-gray-800">
-                  {item.name}
+                  {item.title}
                 </h3>
                 <p className="text-sm text-gray-500">
                   ${item.price.toFixed(2)}
@@ -115,7 +113,7 @@ function OrderSummary({ items, onIncrease, onDecrease, onRemove }) {
           </div>
           <button className="w-full mt-6 bg-blue-600 text-white p-3 rounded-lg shadow-md text-lg font-bold hover:bg-blue-700 transition-colors duration-300 flex items-center justify-center space-x-2">
             <CreditCard className="h-5 w-5" />
-            <span>Checkout Korun</span>
+            <span>Checkout</span>
           </button>
         </>
       )}
@@ -128,39 +126,29 @@ function OrderSummary({ items, onIncrease, onDecrease, onRemove }) {
  */
 export default function Cart() {
   const cart = useSelector((state) => state.cart);
-  console.log(cart);
-  const [items, setItems] = useState(INITIAL_ITEMS);
+  console.log(cart)
+  const dispatch = useDispatch();
 
   // Quantity baranor function
   const handleIncreaseQuantity = (id) => {
-    setItems((currentItems) =>
-      currentItems.map((item) =>
-        item.id === id ? { ...item, quantity: item.quantity + 1 } : item
-      )
-    );
+    dispatch(increaseQuantity({ id }));
   };
 
   // Quantity komano function
   const handleDecreaseQuantity = (id) => {
-    setItems((currentItems) =>
-      currentItems.map((item) =>
-        item.id === id && item.quantity > 1
-          ? { ...item, quantity: item.quantity - 1 }
-          : item
-      )
-    );
+    dispatch(decreaseQuantity({ id }));
   };
 
   // Item remove korar function
   const handleRemoveItem = (id) => {
-    setItems((currentItems) => currentItems.filter((item) => item.id !== id));
+    dispatch(removeFromCart({ id }));
   };
 
   return (
     <div className="min-h-screen bg-gray-100 p-4 md:p-12 flex justify-center items-start">
       <div className="container mx-auto max-w-2xl">
         <OrderSummary
-          items={items}
+          items={cart}
           onIncrease={handleIncreaseQuantity}
           onDecrease={handleDecreaseQuantity}
           onRemove={handleRemoveItem}
