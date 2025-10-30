@@ -10,6 +10,15 @@ const initialState = [
     image:
       "https://images.unsplash.com/photo-1680687688158-e9165395ff00?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=764",
   },
+  {
+    id: 2,
+    title: "Iphone 14 Pro Max",
+    description: "Latest Apple iPhone with advanced features",
+    price: 1099,
+    rating: 4.8,
+    image:
+      "https://images.unsplash.com/photo-1680687688158-e9165395ff00?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=764",
+  },
 ];
 const productsSlice = createSlice({
   name: "products",
@@ -18,7 +27,7 @@ const productsSlice = createSlice({
     // Define reducers if needed
     addProduct: (state, action) => {
       state.push({
-        id: new Date().getTime(),
+        id: state.length >0 ? state[state.length - 1].id + 1 : 1,
         title: action.payload.title,
         description: action.payload.description,
         price: action.payload.price,
