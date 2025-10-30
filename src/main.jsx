@@ -7,6 +7,8 @@ import Home from "./pages/Home.jsx";
 import Product from "./pages/Product.jsx";
 import store from "./redux/store.js";
 import { Provider } from "react-redux";
+import AddProduct from "./pages/AddProduct.jsx";
+import Cart from "./pages/Cart.jsx";
 
 createRoot(document.getElementById("root")).render(
   <Provider store={store}>
@@ -16,8 +18,12 @@ createRoot(document.getElementById("root")).render(
           <Route index Component={Home} />
           <Route path="products" Component={Product} />
           <Route
+            path="add-product"
+            Component={AddProduct}
+          />
+          <Route
             path="cart"
-            element={<h1 className="text-center mt-20">Your Cart</h1>}
+            Component={Cart}
           />
         </Route>
       </Routes>

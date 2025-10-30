@@ -12,12 +12,12 @@ const initialState = [
   },
   {
     id: 2,
-    title: "Iphone 14 Pro Max",
-    description: "Latest Apple iPhone with advanced features",
-    price: 1099,
-    rating: 4.8,
+    title: "Samsung Galaxy S23 Ultra",
+    description: "Flagship Samsung phone with top-notch performance",
+    price: 1199,
+    rating: 4.7,
     image:
-      "https://images.unsplash.com/photo-1680687688158-e9165395ff00?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=764",
+      "https://images.unsplash.com/photo-1675285776817-632fb95aff51?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=733",
   },
 ];
 const productsSlice = createSlice({

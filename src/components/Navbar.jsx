@@ -1,6 +1,6 @@
 import { Menu, ShoppingCart, User } from "lucide-react";
 import React from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 
 const Navbar = () => {
   return (
@@ -13,18 +13,24 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex space-x-6 items-center">
-          <Link
+          <NavLink
             to="/"
             className="hover:text-blue-300 transition-colors duration-200"
           >
             Home
-          </Link>
-          <Link
+          </NavLink>
+          <NavLink
             to="/products"
             className="hover:text-blue-300 transition-colors duration-200"
           >
             Products
-          </Link>
+          </NavLink>
+          <NavLink
+            to="/add-product"
+            className="hover:text-blue-300 transition-colors duration-200"
+          >
+            Add Product
+          </NavLink>
         </div>
 
         {/* Icons */}
