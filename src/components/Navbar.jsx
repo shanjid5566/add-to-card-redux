@@ -13,23 +13,24 @@ const Navbar = () => {
 
         {/* Navigation Links */}
         <div className="hidden md:flex space-x-6 items-center">
-          <a
-            href="/"
+          <Link
+            to="/"
             className="hover:text-blue-300 transition-colors duration-200"
           >
             Home
-          </a>
-          <a
-            href="#"
+          </Link>
+          <Link
+            to="/products"
             className="hover:text-blue-300 transition-colors duration-200"
           >
             Products
-          </a>
+          </Link>
         </div>
 
         {/* Icons */}
         <div className="flex items-center space-x-4">
-          <button
+          <Link
+            to="/cart"
             aria-label="Add to cart"
             className="hover:text-blue-300 transition-colors duration-200 relative"
           >
@@ -38,7 +39,7 @@ const Navbar = () => {
             <span className="absolute -top-2 -right-2 bg-red-500 text-xs rounded-full h-5 w-5 flex items-center justify-center">
               3
             </span>
-          </button>
+          </Link>
           <button
             aria-label="User profile"
             className="hover:text-blue-300 transition-colors duration-200"
