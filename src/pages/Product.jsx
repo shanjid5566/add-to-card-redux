@@ -1,11 +1,36 @@
 import { ShoppingCart, Star } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import { addToCart } from "../redux/features/cart/cartSlice";
+import Swal from "sweetalert2";
 
 const Product = () => {
   const products = useSelector((state) => state.products);
-  console.log(products);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+
+  const handleAddToCart = (product) => {
+    // Check if item already exists in cart
+    const existingItem = cart.find((item) => item.id === product.id);
+    
+    if (existingItem) {
+      Swal.fire({
+        title: "Already in Cart!",
+        text: "This item is already in your cart.",
+        icon: "info",
+        confirmButtonText: "OK",
+      });
+    } else {
+      dispatch(addToCart(product));
+      Swal.fire({
+        title: "Added to Cart!",
+        text: `${product.title} has been added to your cart.`,
+        icon: "success",
+        timer: 1500,
+        showConfirmButton: false,
+      });
+    }
+  };
+
   return (
     <div className="container mx-auto py-20 p-4">
       {products.length === 0 ? (
@@ -49,7 +74,7 @@ const Product = () => {
                     ${product.price}
                   </span>
                   <button
-                    onClick={() => dispatch(addToCart(product))}
+                    onClick={() => handleAddToCart(product)}
                     className="bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors duration-300 flex items-center space-x-2"
                   >
                     <ShoppingCart className="h-5 w-5" />

@@ -2,6 +2,8 @@ import { Upload } from "lucide-react";
 import React, { useState } from "react";
 import { addProduct } from "../redux/features/products/productsSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import Swal from "sweetalert2";
 
 const AddProduct = () => {
   const [formData, setFormData] = useState({
@@ -9,17 +11,49 @@ const AddProduct = () => {
     description: "",
     price: "",
     rating: "",
-    imageUrl: "",
+    image: "",
   });
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
   };
 
-    const handleSubmit = (e) => {
+  const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(addProduct(formData));
+
+    // Dispatch the product with proper field names
+    dispatch(
+      addProduct({
+        title: formData.title,
+        description: formData.description,
+        price: parseFloat(formData.price),
+        rating: parseFloat(formData.rating),
+        image: formData.image,
+      })
+    );
+
+    // Show success alert
+    Swal.fire({
+      title: "Success!",
+      text: "Product added successfully!",
+      icon: "success",
+      confirmButtonText: "OK",
+    }).then(() => {
+      // Reset form
+      setFormData({
+        title: "",
+        description: "",
+        price: "",
+        rating: "",
+        image: "",
+      });
+
+      // Redirect to products page
+      navigate("/products");
+    });
   };
   return (
     <div className="container mx-auto py-20 p-4">
@@ -105,16 +139,16 @@ const AddProduct = () => {
           </div>
           <div>
             <label
-              htmlFor="imageUrl"
+              htmlFor="image"
               className="block text-sm font-medium text-gray-700"
             >
               Image URL
             </label>
             <input
               type="text"
-              name="imageUrl"
-              id="imageUrl"
-              value={formData.imageUrl}
+              name="image"
+              id="image"
+              value={formData.image}
               onChange={handleChange}
               required
               className="mt-1 block w-full rounded-md border-gray-900 shadow-sm focus:border-blue-500 focus:ring-blue-500 sm:text-sm p-2"

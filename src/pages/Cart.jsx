@@ -14,7 +14,7 @@ import {
 function OrderSummary({ items, onIncrease, onDecrease, onRemove }) {
   // Calculate totals
   const subtotal = items.reduce(
-    (acc, item) => acc + item.price * item.quantity,
+    (acc, item) => acc + parseFloat(item.price) * item.quantity,
     0
   );
   const shipping = items.length > 0 ? 10.0 : 0; // Shipping fee jodi item thake
@@ -45,7 +45,7 @@ function OrderSummary({ items, onIncrease, onDecrease, onRemove }) {
                   {item.title}
                 </h3>
                 <p className="text-sm text-gray-500">
-                  ${item.price.toFixed(2)}
+                  ${parseFloat(item.price).toFixed(2)}
                 </p>
               </div>
 
@@ -73,7 +73,7 @@ function OrderSummary({ items, onIncrease, onDecrease, onRemove }) {
 
                 {/* Item Total Price */}
                 <span className="text-lg font-medium text-gray-900 w-20 text-right">
-                  ${(item.price * item.quantity).toFixed(2)}
+                  ${(parseFloat(item.price) * item.quantity).toFixed(2)}
                 </span>
 
                 {/* Remove Button */}
