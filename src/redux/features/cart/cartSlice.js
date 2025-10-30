@@ -1,21 +1,28 @@
 import { createSlice } from "@reduxjs/toolkit";
-import Swal from "sweetalert2";
 
-const initialState = [];
+// Load initial state from localStorage
+const loadInitialState = () => {
+  try {
+    const serializedCart = localStorage.getItem("cart");
+    if (serializedCart === null) {
+      return [];
+    }
+    return JSON.parse(serializedCart);
+  } catch (err) {
+    console.error("Could not load cart from localStorage", err);
+    return [];
+  }
+};
+
+const initialState = loadInitialState();
+
 const cartSlice = createSlice({
   name: "cart",
   initialState,
   reducers: {
     addToCart: (state, action) => {
       const existingItem = state.find((item) => item.id === action.payload.id);
-      if (existingItem) {
-        Swal.fire({
-          title: "Already in Cart!",
-          text: "This item is already in your cart.",
-          icon: "info",
-          confirmButtonText: "OK",
-        });
-      } else {
+      if (!existingItem) {
         state.push({ ...action.payload, quantity: 1 });
       }
     },
