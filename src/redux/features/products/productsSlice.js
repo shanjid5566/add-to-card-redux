@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-const initialState = [
+const defaultProducts = [
   {
     id: 1,
     title: "Iphone 14 Pro Max",
@@ -20,6 +20,23 @@ const initialState = [
       "https://images.unsplash.com/photo-1675285776817-632fb95aff51?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&q=80&w=733",
   },
 ];
+
+// Load initial state from localStorage
+const loadInitialState = () => {
+  try {
+    const serializedProducts = localStorage.getItem("products");
+    if (serializedProducts === null) {
+      return defaultProducts;
+    }
+    return JSON.parse(serializedProducts);
+  } catch (err) {
+    console.error("Could not load products from localStorage", err);
+    return defaultProducts;
+  }
+};
+
+const initialState = loadInitialState();
+
 const productsSlice = createSlice({
   name: "products",
   initialState,
