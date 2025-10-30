@@ -2,7 +2,7 @@ import { ShoppingCart, Star } from "lucide-react";
 
 const Product = () => {
   return (
-    <div className="container mx-auto p-8">
+    <div className="container mx-auto py-20">
       <div className="max-w-3xs bg-white rounded-lg shadow-md overflow-hidden transition-transform duration-300 hover:scale-105">
         <img
           src="https://placehold.co/600x400/cccccc/ffffff?text=Product+Image"
